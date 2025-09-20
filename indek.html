@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>website arina</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <script>
+    let cart = [];
+    const cartBtn = document.getElementById("cartBtn");
+    const cartOverlay = document.getElementById("cartOverlay");
+    const closeCart = document.getElementById("closeCart");
+    const cartItems = document.getElementById("cartItems");
+    const cartCount = document.getElementById("cartCount");
+  
+   
+    cartBtn.addEventListener("click", () => {
+      cartOverlay.style.display = "block";
+    });
+  
+   
+    closeCart.addEventListener("click", () => {
+      cartOverlay.style.display = "none";
+    });
+  
+   
+    document.querySelectorAll(".add-to-cart").forEach(button => {
+      button.addEventListener("click", () => {
+        const name = button.dataset.name;
+        const price = parseInt(button.dataset.price);
+  
+       
+        const found = cart.find(item => item.name === name);
+        if(found){
+          found.qty++;
+        } else {
+          cart.push({ name, price, qty: 1 });
+        }
+  
+        updateCart();
+      });
+    });
+  
+    function updateCart(){
+      cartItems.innerHTML = "";
+      let totalQty = 0;
+  
+      cart.forEach(item => {
+        totalQty += item.qty;
+        const div = document.createElement("div");
+        div.classList.add("cart-item");
+        div.innerHTML = `
+          <p>${item.name} x${item.qty} - Rp ${item.price.toLocaleString()}</p>
+        `;
+        cartItems.appendChild(div);
+      });
+  
+      cartCount.textContent = totalQty;
+    }
+  </script>
+  
+  <header>
+    <div class="logo">SKINTIFIC</div>
+    <nav class="navbar">
+        <div class="menu">
+              <a href="indek.html">Beranda</a>
+              <a href="koleksi.html">Koleksi</a>
+              <a href="produk.html">Produk</a>
+              <a href="detail.html">Detail Produk</a>
+        </div>
+       
+      </div>
+    </nav>
+    <div class="search-box">
+      <input type="text" placeholder="Cari...">
+     
+    </div>
+    <div class="cart" onclick="showCartPage()">
+       <span id="cart-count"></span> 🛒
+    </div>
+  </header>
+  <section class="hero">
+    <img src="Skincare-Skintific.jpeg" alt="Skintific Hero" width="3000px">
+  </section>
+
+  <section class="products">
+    <div class="product-card">
+      <img src="S9db1bfc6d6ec4550bd6da995f2e56934f.jpg_720x720q80.jpg" alt="Niacinamide Moisturizer">
+      <h3>MSH Niacinamide Brightening Moisturizer</h3>
+      <button class="add-to-cart" data-name="Ultra Cover Powder Foundation" data-price="110000">Tambah ke Keranjang</button>
+  </div>
+    </div>
+    <div class="product-card">
+      <img src="prd-back-28566.avif" alt="Ceramide Moisturizer">
+      <h3>5X Ceramide Barrier Moisturizer</h3>
+      <button class="add-to-cart" data-name="MSH Niacinamide Brightening Moisturizer" data-price="120000">Tambah ke Keranjang</button>
+    </div>
+    <div class="product-card">
+      <img src="id-11134207-7rase-m1whad20bttl6a@resize_w900_nl.webp" alt="Powder Foundation">
+      <h3>Ultra Cover Powder Foundation</h3>
+    </div>
+    <div class="product-card">
+      <img src="sg-11134201-7rdx1-mdh9o05vk5ic97.webp" alt="Skin Tint">
+      <h3>Perfect Coverage Blurring Skin Tint</h3>
+    </div>
+  </section>
+
+ 
+  <div class="cart-overlay" id="cartOverlay">
+    <div class="cart-header">
+      <h2>Keranjang</h2>
+      <span class="close-cart" id="closeCart">✖</span>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-footer">
+      <button class="checkout-btn">Checkout</button>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-left">
+      SKINTIFIC
+    </div>
+  
+    <div class="newsletter">
+      <p><strong><center>Newsletter</center></strong></p>
+      <p>Sign up and get limited 10%OFF!</p>
+       <form>
+        <label for="email"></label><br>
+        <input type="email" id="email" placeholder=" email" required >
+        <button><i class="fa fa-paper-plane"></i></button>
+      </form>
+      <div class="sosmed">
+        <i class="fab fa-instagram"></i>
+        <i class="fab fa-youtube"></i>
+        <i class="fab fa-tiktok"></i>
+      </div>
+    </div>
+  
+    <div class="contact">
+      <p><strong>CONTACT US</strong></p>
+      <a href="mailto:cs@skintific.com">cs@skintific.com</a>
+    </div>
+  </footer>
+
+</body>
+
+</html>
